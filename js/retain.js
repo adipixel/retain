@@ -18,10 +18,10 @@ $(function(){
 
 
     var octopus = {
-        addNewNote: function(noteStr, dateStr) {
+        addNewNote: function(noteStr) {
             model.add({
                 content: noteStr,
-                date: dateStr
+                date: Date.now()
             });
             view.render();
         },
@@ -43,7 +43,7 @@ $(function(){
             var newNoteForm = $('#new-note-form');
             var newNoteContent = $('#new-note-content');
             newNoteForm.submit(function(e){
-                octopus.addNewNote(newNoteContent.val(), Date.now());
+                octopus.addNewNote(newNoteContent.val());
                 newNoteContent.val('');
                 e.preventDefault();
             });
