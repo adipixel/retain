@@ -18,15 +18,16 @@ $(function(){
 
 
     var octopus = {
-        addNewNote: function(noteStr) {
+        addNewNote: function(noteStr, dateStr) {
             model.add({
-                content: noteStr
+                content: noteStr,
+                date: dateStr
             });
             view.render();
         },
 
         getNotes: function() {
-            return model.getAllNotes();
+            return model.getAllNotes().reverse();
         },
 
         init: function() {
@@ -42,7 +43,7 @@ $(function(){
             var newNoteForm = $('#new-note-form');
             var newNoteContent = $('#new-note-content');
             newNoteForm.submit(function(e){
-                octopus.addNewNote(newNoteContent.val());
+                octopus.addNewNote(newNoteContent.val(), Date.now());
                 newNoteContent.val('');
                 e.preventDefault();
             });
@@ -52,7 +53,7 @@ $(function(){
             var htmlStr = '';
             octopus.getNotes().forEach(function(note){
                 htmlStr += '<li class="note">'+
-                        note.content +
+                        note.content + '<span class="note-date">'+ note.date +'</span>' +
                     '</li>';
             });
             this.noteList.html( htmlStr );
